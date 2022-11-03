@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load class_name %}
+{% block head_title %}Search{% endblock head_title %}
+{% block content %}
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-20">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Search engine</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+        Just Learning and Develop My Skills.
+      </p>
+    </div>
+    <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+      <h3 class='my-3 py-0'>{{ count }} results for <b>{{ query }}</b></h3>
+      <table class="table-auto w-full text-left whitespace-no-wrap">
+        <thead>
+          <tr>
+            <th
+              class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
+              Title</th>
+            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Description
+            </th>
+            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Publish date
+            </th>
+            <th
+              class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
+              Model
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for serach_objects in object_list %}
+
+          {% with serach_objects|class_name as klass %}
+
+          {% if klass == 'Post' %}
+            {% include 'shared/post-table.html' with object=serach_objects model='Post' %}
+          {% elif klass == 'Lesson' %}
+            {% include 'shared/lesson-table.html' with object=serach_objects model='Lesson' %}
+          {% elif klass == 'Profile' %}
+            {% include 'shared/profile-table.html' with object=serach_objects model='Profile' %}
+          {% endif %}
+
+          {% endwith %}
+
+          {% empty %}
+          <h1>Empty Search Results</h1>
+
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

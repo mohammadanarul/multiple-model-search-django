@@ -1,0 +1,8 @@
+<tr>
+    <td class="px-4 py-3">{{ object.title }}</td>
+    <td class="px-4 py-3">{{ object.description|slice:"50" }}</td>
+    <td class="px-4 py-3 text-lg text-gray-900">{{ object.publish_date|date }}</td>
+    <td class="w-10 text-center">
+    {{ model }}
+    </td>
+</tr>
